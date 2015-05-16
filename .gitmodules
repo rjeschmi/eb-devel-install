@@ -13,3 +13,6 @@
 [submodule "vsc-base"]
 	path = vsc-base
 	url = git@github.com:rjeschmi/vsc-base.git
+[submodule "eb-easyconfigs"]
+	path = eb-easyconfigs
+	url = git@github.com:rjeschmi/eb-easyconfigs.git
