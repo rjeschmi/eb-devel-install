@@ -10,3 +10,6 @@
 [submodule "easybuild"]
 	path = easybuild
 	url = git@github.com:rjeschmi/easybuild.git
+[submodule "vsc-base"]
+	path = vsc-base
+	url = git@github.com:rjeschmi/vsc-base.git
