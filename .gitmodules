@@ -16,3 +16,6 @@
 [submodule "eb-easyconfigs"]
 	path = eb-easyconfigs
 	url = git@github.com:rjeschmi/eb-easyconfigs.git
+[submodule "eb-easyblocks"]
+	path = eb-easyblocks
+	url = git@github.com:rjeschmi/eb-easyblocks.git

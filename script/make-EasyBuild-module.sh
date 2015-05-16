@@ -35,6 +35,7 @@ prepend-path    PYTHONPATH      "\$root/vsc-base/lib"
 prepend-path    PYTHONPATH      "\$root/easybuild-framework"
 prepend-path    PYTHONPATH      "\$root/easybuild-easyblocks"
 prepend-path    PYTHONPATH      "\$root/easybuild-easyconfigs"
+prepend-path    PYTHONPATH      "\$root/eb-easyblocks"
 
 EOF
 }
