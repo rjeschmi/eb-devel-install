@@ -4,3 +4,9 @@
 [submodule "easybuild-easyblocks"]
 	path = easybuild-easyblocks
 	url = git@github.com:rjeschmi/easybuild-easyblocks.git
+[submodule "easybuild-framework"]
+	path = easybuild-framework
+	url = git@github.com:rjeschmi/easybuild-framework.git
+[submodule "easybuild"]
+	path = easybuild
+	url = git@github.com:rjeschmi/easybuild.git
