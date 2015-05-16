@@ -1,3 +1,6 @@
 [submodule "easybuild-easyconfigs"]
 	path = easybuild-easyconfigs
 	url = https://github.com/rjeschmi/easybuild-easyconfigs
+[submodule "easybuild-easyblocks"]
+	path = easybuild-easyblocks
+	url = git@github.com:rjeschmi/easybuild-easyblocks.git
