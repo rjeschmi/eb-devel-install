@@ -1,0 +1,3 @@
+[submodule "easybuild-easyconfigs"]
+	path = easybuild-easyconfigs
+	url = https://github.com/hpcugent/easybuild-easyconfigs
