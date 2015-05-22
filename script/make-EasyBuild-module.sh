@@ -29,12 +29,12 @@ set root    "${INSTALL_DIR}"
 
 conflict    EasyBuild
 
-prepend-path    PATH            "\$root/easybuild-framework"
+prepend-path    PATH            "\$root/eb/easybuild-framework"
 
-prepend-path    PYTHONPATH      "\$root/vsc-base/lib"
-prepend-path    PYTHONPATH      "\$root/easybuild-framework"
-prepend-path    PYTHONPATH      "\$root/easybuild-easyblocks"
-prepend-path    PYTHONPATH      "\$root/easybuild-easyconfigs"
+prepend-path    PYTHONPATH      "\$root/eb/vsc-base/lib"
+prepend-path    PYTHONPATH      "\$root/eb/easybuild-framework"
+prepend-path    PYTHONPATH      "\$root/eb/easybuild-easyblocks"
+prepend-path    PYTHONPATH      "\$root/eb/easybuild-easyconfigs"
 prepend-path    PYTHONPATH      "\$root/eb-easyblocks"
 
 EOF
