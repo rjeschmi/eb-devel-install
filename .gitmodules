@@ -1,17 +1,17 @@
 [submodule "eb/easybuild-easyconfigs"]
-	path = easybuild-easyconfigs
+	path = eb/easybuild-easyconfigs
 	url = https://github.com/rjeschmi/easybuild-easyconfigs
 [submodule "eb/easybuild-easyblocks"]
-	path = easybuild-easyblocks
+	path = eb/easybuild-easyblocks
 	url = git@github.com:rjeschmi/easybuild-easyblocks.git
 [submodule "eb/easybuild-framework"]
-	path = easybuild-framework
+	path = eb/easybuild-framework
 	url = git@github.com:rjeschmi/easybuild-framework.git
 [submodule "eb/easybuild"]
-	path = easybuild
+	path = eb/easybuild
 	url = git@github.com:rjeschmi/easybuild.git
 [submodule "eb/vsc-base"]
-	path = vsc-base
+	path = eb/vsc-base
 	url = git@github.com:rjeschmi/vsc-base.git
 [submodule "eb-easyconfigs"]
 	path = eb-easyconfigs
