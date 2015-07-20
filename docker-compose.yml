@@ -1,0 +1,8 @@
+easybuild:
+    image: rjeschmi/easybuild-centos6
+    volumes:
+        - ./export:/export/easybuild
+        - ./eb:/software/easybuild-develop
+        - ./eb-module:/software/easybuild-develop/modulefiles
+    user: root
+
