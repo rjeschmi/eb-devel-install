@@ -4,5 +4,7 @@ easybuild:
         - ./export:/export/easybuild
         - ./eb:/software/easybuild-develop
         - ./eb-module:/software/easybuild-develop/modulefiles
+        - ./eb-easyblocks:/software/eb-easyblocks
+        - ./eb-easyconfigs:/software/eb-easyconfigs
     user: root
 
