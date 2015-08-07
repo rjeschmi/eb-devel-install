@@ -7,6 +7,8 @@ easybuild:
         - ./eb-easyblocks:/software/eb-easyblocks
         - ./eb-easyconfigs:/software/eb-easyconfigs
     user: root
+    volumes_from: 
+        - EasybuildSources
 
 
 EasybuildGoolf1720:
