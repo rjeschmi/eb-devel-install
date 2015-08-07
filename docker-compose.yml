@@ -8,3 +8,14 @@ easybuild:
         - ./eb-easyconfigs:/software/eb-easyconfigs
     user: root
 
+
+EasybuildGoolf1720:
+    image: rjeschmi/easybuild-centos6
+    volumes:
+        - ./export:/export/easybuild
+        - ./eb:/software/easybuild-develop
+        - ./eb-module:/software/easybuild-develop/modulefiles
+        - ./eb-easyblocks:/software/eb-easyblocks
+        - ./eb-easyconfigs:/software/eb-easyconfigs
+    user: root
+    command: su -l -c 'ml load FPM-1.3.3-Ruby-2.1.6.eb && eb --experimental --package --sourcepath=/export/easybuild/sources --download-timeout=60 --prefix=/software/easybuild --packagepath=/export/easybuild/packages goolf-1.7.20 -dfr' - build
