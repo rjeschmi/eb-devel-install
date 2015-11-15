@@ -6,6 +6,7 @@ easybuild:
         - ./eb-module:/software/easybuild-develop/modulefiles
         - ./eb-easyblocks:/software/eb-easyblocks
         - ./eb-easyconfigs:/software/eb-easyconfigs
+        - ./sources:/export/easybuild/sources
     user: root
 
 easybuild_build:
