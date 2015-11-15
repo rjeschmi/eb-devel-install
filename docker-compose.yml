@@ -6,8 +6,12 @@ easybuild:
         - ./eb-module:/software/easybuild-develop/modulefiles
         - ./eb-easyblocks:/software/eb-easyblocks
         - ./eb-easyconfigs:/software/eb-easyconfigs
+        - ./sources:/export/easybuild/sources
     user: root
 
+easybuild_build:
+    extends: easybuild
+    build: docker/centos7
 
 EasybuildGoolf1720:
     image: rjeschmi/easybuild-centos7
