@@ -19,3 +19,6 @@
 [submodule "eb-easyblocks"]
 	path = eb-easyblocks
 	url = git@github.com:rjeschmi/eb-easyblocks.git
+[submodule "eb/vsc-install"]
+	path = eb/vsc-install
+	url = git@github.com:hpcugent/vsc-install.git
