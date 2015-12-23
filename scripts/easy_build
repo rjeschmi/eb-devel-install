@@ -28,8 +28,8 @@ def path_addto(destpath, srcpath):
         os.environ[destpath] += os.pathsep + srcpath
     else:
         os.environ[destpath] = srcpath
-
     # print "environ: %s" % os.environ
+
 def eb_main_call(*args, **kwargs):
     """A function that will be demoted and call eb_main_call"""
     demote()()
@@ -39,11 +39,6 @@ def eb_main_call(*args, **kwargs):
 
 def eb_call(arguments, *args, **kwargs):
     opt_args = []
-    eb_pkg = kwargs.get('eb_pkg', False)
-    if eb_pkg:
-        opt_args.extend([
-            "--package",
-        ])
     try:
         eb_kwargs = {'args': arguments}
         process = Process(target=eb_main_call, kwargs=eb_kwargs)
@@ -94,10 +89,14 @@ def call_build(args):
         eb_call(["FPM-1.3.3-Ruby-2.1.6.eb", "-r", "--prefix=/software/easybuild"])
         module("load", ["FPM/1.3.3-Ruby-2.1.6"])
         cmd = ["--package",
-               "--sourcepath=/export/easybuild/sources --download-timeout=60",
+               "--sourcepath=/export/easybuild/sources",
+               "--download-timeout=60",
                "--prefix=/software/easybuild",
-               "--packagepath=/repos/%(repos)s %(repos)s.eb -dfr" % {'repos': toolchain}
+               "--packagepath=/repos/%(repos)s" % {'repos': toolchain},
+               "%(repos)s.eb" % {'repos': toolchain},
+               "-fr"
               ]
+        print "calling eb with args: %s" % cmd
         eb_call(cmd)
 
 def main():
