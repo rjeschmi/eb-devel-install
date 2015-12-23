@@ -62,36 +62,38 @@ def demote():
 def call_build(args):
     """The build subcommand"""
     print "Building for toolchains: %s" % args.toolchains
+    cmd = ["chown", "-R", "easybuild", "/software/easybuild"]
+    path_addto("MODULEPATH", "/software/Lmod/lmod/lmod/modulefiles/Core")
+    path_addto("MODULEPATH", "/software/easybuild-develop/modulefiles")
+    path_addto("MODULEPATH", "/software/easybuild/modules/all")
+    module("load", ["EasyBuild-develop"])
+    update_sys_path()
+    module("av")
+    module("load", ["lmod"])
+    if os.path.isfile("/repos/bootstrap/eb_bootstrap.tar.gz"):
+        os.chdir("/software")
+        cmd = ["tar", "xvzf", "/repos/bootstrap/eb_bootstrap.tar.gz"]
+        output = subprocess.check_output(cmd)
+        print "create_bootstrap: %s" % output
+
+    elif not os.path.isdir("/software/easybuild/modules/all"):
+        eb_call(["FPM-1.3.3-Ruby-2.1.6.eb", "-r", "--prefix=/software/easybuild"])
+        os.chdir("/software")
+        cmd = ["tar", "cvzf", "/repos/bootstrap/eb_bootstrap.tar.gz", "easybuild"]
+        output = subprocess.check_output(cmd)
+        print "bootstrap: %s" % output
+
+    else:
+        print "Found a preexisting software directory"
+
     for toolchain in args.toolchains:
         rpm_glob = "/repos/%s/*.rpm" % toolchain
         if glob.glob(rpm_glob):
             cmd = ["rpm", "-ivh", rpm_glob]
             check_call(cmd)
-        cmd = ["chown", "-R", "easybuild", "/software/easybuild"]
         output = subprocess.check_output(cmd)
-        path_addto("MODULEPATH", "/software/Lmod/lmod/lmod/modulefiles/Core")
-        path_addto("MODULEPATH", "/software/easybuild-develop/modulefiles")
-        path_addto("MODULEPATH", "/software/easybuild/modules/all")
-        module("load", ["EasyBuild-develop"])
-        update_sys_path()
-        module("av")
-        module("load", ["lmod"])
         eb_call(["FPM-1.3.3-Ruby-2.1.6.eb", "-r", "--prefix=/software/easybuild"])
         module("load", ["FPM/1.3.3-Ruby-2.1.6"])
-        eb_call(
-            ["Ruby-2.1.6.eb",
-             "--sourcepath=/export/easybuild/sources --download-timeout=60",
-             "--prefix=/software/easybuild", "--force", "--skip",
-             "--packagepath=/repos/%(repos)s %(repos)s.eb -dfr" % {'repos': toolchain}
-            ]
-        )
-        eb_call(
-            ["FPM-1.3.3-Ruby-2.1.6.eb",
-             "--sourcepath=/export/easybuild/sources --download-timeout=60",
-             "--prefix=/software/easybuild", "--force", "--skip",
-             "--packagepath=/repos/%(repos)s %(repos)s.eb -dfr" % {'repos': toolchain}
-            ]
-        )
         cmd = ["--package",
                "--sourcepath=/export/easybuild/sources --download-timeout=60",
                "--prefix=/software/easybuild",
