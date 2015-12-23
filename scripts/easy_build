@@ -91,7 +91,6 @@ def call_build(args):
         if glob.glob(rpm_glob):
             cmd = ["rpm", "-ivh", rpm_glob]
             check_call(cmd)
-        output = subprocess.check_output(cmd)
         eb_call(["FPM-1.3.3-Ruby-2.1.6.eb", "-r", "--prefix=/software/easybuild"])
         module("load", ["FPM/1.3.3-Ruby-2.1.6"])
         cmd = ["--package",
