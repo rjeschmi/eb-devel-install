@@ -96,7 +96,7 @@ def call_build(args):
                "--prefix=/software/easybuild",
                "--packagepath=/repos/%(repos)s" % {'repos': toolchain},
                "%(repos)s.eb" % {'repos': toolchain},
-               "-fr"
+               "--robot"
               ]
         print "calling eb with args: %s" % cmd
         eb_call(cmd)
