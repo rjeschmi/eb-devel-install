@@ -10,33 +10,15 @@ easybuild:
         - ./repos:/repos
     user: root
 
+easybuildfedora23:
+    image: rjeschmi/easybuild-fedora23
+    extends: easybuild
+
 easybuild_build:
     extends: easybuild
     build: docker/centos7
 
-EasybuildGoolf1720:
-    image: rjeschmi/easybuild-centos7
-    volumes:
-        - ./export:/export/easybuild
-        - ./eb:/software/easybuild-develop
-        - ./eb-module:/software/easybuild-develop/modulefiles
-        - ./eb-easyblocks:/software/eb-easyblocks
-        - ./eb-easyconfigs:/software/eb-easyconfigs
-        - ./sources:/export/easybuild/sources
-        - ./repos:/repos
-    user: root
-    command: su -l -c 'eb FPM-1.3.3-Ruby-2.1.6.eb -r --prefix=/software/easybuild && ml load FPM/1.3.3-Ruby-2.1.6 && eb --experimental --package --sourcepath=/export/easybuild/sources --download-timeout=60 --prefix=/software/easybuild --packagepath=/repos/goolf-1.7.20 goolf-1.7.20.eb -dfr' - easybuild
-
 BuildToolchain:
-    image: rjeschmi/easybuild-centos7
-    volumes:
-        - ./export:/export/easybuild
-        - ./eb:/software/easybuild-develop
-        - ./eb-module:/software/easybuild-develop/modulefiles
-        - ./eb-easyblocks:/software/eb-easyblocks
-        - ./eb-easyconfigs:/software/eb-easyconfigs
-        - ./sources:/export/easybuild/sources
-        - ./repos:/repos
-    user: root
+    extends: easybuild
     entrypoint: /export/easybuild/scripts/easy_build
 
