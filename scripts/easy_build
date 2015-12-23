@@ -30,19 +30,23 @@ def path_addto(destpath, srcpath):
         os.environ[destpath] = srcpath
 
     # print "environ: %s" % os.environ
+def eb_main_call(*args **kwargs):
+    """A function that will be demoted and call eb_main_call"""
+    demote()()
+    args = kwargs.get('args', None)
+    import easybuild.main as eb_main
+    eb_main(args=args)
 
 def eb_call(arguments, *args, **kwargs):
-    demote()()
     opt_args = []
     eb_pkg = kwargs.get('eb_pkg', False)
     if eb_pkg:
         opt_args.extend([
             "--package",
         ])
-    import easybuild.main as eb_main
     try:
         eb_kwargs = {'args': arguments}
-        process = Process(target=eb_main.main, kwargs=eb_kwargs)
+        process = Process(target=eb_main_call, kwargs=eb_kwargs)
         process.start()
         process.join()
     except Exception, err:
@@ -73,18 +77,26 @@ def call_build(args):
         module("av")
         module("load", ["lmod"])
         eb_call(["FPM-1.3.3-Ruby-2.1.6.eb", "-r", "--prefix=/software/easybuild"])
-        eb_call(
-            ["FPM-1.3.3-Ruby-2.1.6.eb", "-r",
-             "--prefix=/software/easybuild", "--force"],
-             eb_pkg=True)
-        module("av")
         module("load", ["FPM/1.3.3-Ruby-2.1.6"])
-        cmd = ["--experimental --package",
+        eb_call(
+            ["Ruby-2.1.6.eb",
+             "--sourcepath=/export/easybuild/sources --download-timeout=60",
+             "--prefix=/software/easybuild", "--force", "--skip",
+             "--packagepath=/repos/%(repos)s %(repos)s.eb -dfr" % {'repos': toolchain}
+            ]
+        )
+        eb_call(
+            ["FPM-1.3.3-Ruby-2.1.6.eb",
+             "--sourcepath=/export/easybuild/sources --download-timeout=60",
+             "--prefix=/software/easybuild", "--force", "--skip",
+             "--packagepath=/repos/%(repos)s %(repos)s.eb -dfr" % {'repos': toolchain}
+            ]
+        )
+        cmd = ["--package",
                "--sourcepath=/export/easybuild/sources --download-timeout=60",
                "--prefix=/software/easybuild",
                "--packagepath=/repos/%(repos)s %(repos)s.eb -dfr" % {'repos': toolchain}
               ]
-        print "cmd: %s" % cmd
         eb_call(cmd)
 
 def main():
