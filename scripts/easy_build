@@ -16,7 +16,7 @@ def module(command, arguments=[]):
         print "stdout: %s stderr: %s" % (stdout, stderr)
         exec stdout #pylint: disable=W0122
     except Exception, err:
-        print "Caught Exception err: %s in cmd: %s" % (err,cmd)
+        print "Caught Exception err: %s in cmd: %s" % (err, cmd)
         sys.exit(1)
 
 def path_addto(destpath, srcpath):
@@ -28,6 +28,8 @@ def path_addto(destpath, srcpath):
     print "environ: %s" % os.environ
 
 def eb_call(arguments):
+    import easybuild.main as eb_main
+    eb_main(args=arguments)
     cmd = ["eb"] + arguments
     try:
         process = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE, preexec_fn=demote())
