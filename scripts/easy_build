@@ -30,12 +30,12 @@ def path_addto(destpath, srcpath):
         os.environ[destpath] = srcpath
 
     # print "environ: %s" % os.environ
-def eb_main_call(*args **kwargs):
+def eb_main_call(*args, **kwargs):
     """A function that will be demoted and call eb_main_call"""
     demote()()
     args = kwargs.get('args', None)
     import easybuild.main as eb_main
-    eb_main(args=args)
+    eb_main.main(args=args)
 
 def eb_call(arguments, *args, **kwargs):
     opt_args = []
