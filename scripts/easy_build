@@ -27,10 +27,17 @@ def path_addto(destpath, srcpath):
 
     print "environ: %s" % os.environ
 
-def eb_call(arguments):
-    cmd = ["eb"] + arguments
+def eb_call(arguments, *args, **kwargs):
+    opt_args = []
+    if kwargs[eb_pkg]:
+        opt_args.extend([
+            "--experimental",
+            "--package",
+        ]);
+            
+    cmd = ["eb"] + arguments + opt_args
     try:
-        process = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE, preexec_fn=demote())
+        process = subprocess.Popen(cmd, stdout=sys.stdout, stderr=PIPE, preexec_fn=demote())
         (stdout, stderr) = process.communicate()
         if process.returncode > 0:
             raise subprocess.CalledProcessError(process.returncode, cmd)
@@ -65,15 +72,16 @@ def call_build(args):
         module("av")
         module("load", ["lmod"])
         eb_call(["FPM-1.3.3-Ruby-2.1.6.eb", "-r", "--prefix=/software/easybuild"])
+        eb_call(["FPM-1.3.3-Ruby-2.1.6.eb", "-r", "--prefix=/software/easybuild"], eb_pkg=True)
         module("av")
         module("load", ["FPM/1.3.3-Ruby-2.1.6"])
-        cmd = ["eb --experimental --package",
+        cmd = ["--experimental --package",
                "--sourcepath=/export/easybuild/sources --download-timeout=60",
-               "--prefix=/software/easybuild --packagepath=/repos/%(repos)s %(repos)s.eb -dfr"
-               % {'repos': toolchain}
+               "--prefix=/software/easybuild",
+               "--packagepath=/repos/%(repos)s %(repos)s.eb -dfr" % {'repos': toolchain}
               ]
         print "cmd: %s" % cmd
-        check_call(cmd)
+        eb_call(cmd)
 
 def main():
     """The main function, when run on the command-line"""
