@@ -8,7 +8,8 @@ easybuild:
         - ./eb-easyconfigs:/software/eb-easyconfigs
         - ./sources:/export/easybuild/sources
         - ./repos:/repos
-        - ./scripts/easy_build:/software/scripts/easybuild
+        - ./scripts/easy_build:/software/scripts/easy_build
+        - ./eb/config/config.cfg:/software/config/config.cfg
     user: root
 
 easybuildfedora23:

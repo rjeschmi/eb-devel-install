@@ -7,17 +7,21 @@ import argparse
 import glob
 import subprocess
 from subprocess import check_call, PIPE
+from multiprocessing import Process
 
 def module(command, arguments=[]):
     cmd = ['/software/Lmod/lmod/lmod/libexec/lmod', 'python'] + [command] + arguments
     try:
         process = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE)
         (stdout, stderr) = process.communicate()
-        print "stdout: %s stderr: %s" % (stdout, stderr)
+        # print "stdout: %s stderr: %s" % (stdout, stderr)
         exec stdout #pylint: disable=W0122
     except Exception, err:
         print "Caught Exception err: %s in cmd: %s" % (err, cmd)
         sys.exit(1)
+
+def update_sys_path():
+    sys.path.extend(os.environ['PYTHONPATH'].split(os.pathsep))
 
 def path_addto(destpath, srcpath):
     if os.getenv(destpath):
@@ -25,21 +29,22 @@ def path_addto(destpath, srcpath):
     else:
         os.environ[destpath] = srcpath
 
-    print "environ: %s" % os.environ
+    # print "environ: %s" % os.environ
 
-def eb_call(arguments):
+def eb_call(arguments, *args, **kwargs):
+    demote()()
+    opt_args = []
+    eb_pkg = kwargs.get('eb_pkg', False)
+    if eb_pkg:
+        opt_args.extend([
+            "--package",
+        ])
     import easybuild.main as eb_main
-    eb_main(args=arguments)
-    cmd = ["eb"] + arguments
     try:
-        process = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE, preexec_fn=demote())
-        (stdout, stderr) = process.communicate()
-        if process.returncode > 0:
-            raise subprocess.CalledProcessError(process.returncode, cmd)
-    except subprocess.CalledProcessError as err:
-        print "Caught ProcessError: returncode %s cmd: %s" % (err.returncode, err.cmd)
-        print "stdout: %s stderr: %s" % (stdout, stderr)
-        sys.exit(1)
+        eb_kwargs = {'args': arguments}
+        process = Process(target=eb_main.main, kwargs=eb_kwargs)
+        process.start()
+        process.join()
     except Exception, err:
         print "Caught Exception err: %s" % (err)
         sys.exit(1)
@@ -64,18 +69,23 @@ def call_build(args):
         path_addto("MODULEPATH", "/software/easybuild-develop/modulefiles")
         path_addto("MODULEPATH", "/software/easybuild/modules/all")
         module("load", ["EasyBuild-develop"])
+        update_sys_path()
         module("av")
         module("load", ["lmod"])
         eb_call(["FPM-1.3.3-Ruby-2.1.6.eb", "-r", "--prefix=/software/easybuild"])
+        eb_call(
+            ["FPM-1.3.3-Ruby-2.1.6.eb", "-r",
+             "--prefix=/software/easybuild", "--force"],
+             eb_pkg=True)
         module("av")
         module("load", ["FPM/1.3.3-Ruby-2.1.6"])
-        cmd = ["eb --experimental --package",
+        cmd = ["--experimental --package",
                "--sourcepath=/export/easybuild/sources --download-timeout=60",
-               "--prefix=/software/easybuild --packagepath=/repos/%(repos)s %(repos)s.eb -dfr"
-               % {'repos': toolchain}
+               "--prefix=/software/easybuild",
+               "--packagepath=/repos/%(repos)s %(repos)s.eb -dfr" % {'repos': toolchain}
               ]
         print "cmd: %s" % cmd
-        check_call(cmd)
+        eb_call(cmd)
 
 def main():
     """The main function, when run on the command-line"""
