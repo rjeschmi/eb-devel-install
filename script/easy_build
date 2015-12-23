@@ -1,0 +1,89 @@
+#!/usr/bin/env python
+"""A script that is run within docker to handle building a specific repo"""
+
+import os
+import sys
+import argparse
+import glob
+import subprocess
+from subprocess import check_call, PIPE
+
+def module(command, arguments=[]):
+    cmd = ['/software/Lmod/lmod/lmod/libexec/lmod', 'python'] + [command] + arguments
+    try:
+        process = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE)
+        (stdout, stderr) = process.communicate()
+        print "stdout: %s stderr: %s" % (stdout, stderr)
+        exec stdout #pylint: disable=W0122
+    except Exception, err:
+        print "Caught Exception err: %s in cmd: %s" % (err,cmd)
+        sys.exit(1)
+
+def path_addto(destpath, srcpath):
+    if os.getenv(destpath):
+        os.environ[destpath] += os.pathsep + srcpath
+    else:
+        os.environ[destpath] = srcpath
+
+    print "environ: %s" % os.environ
+
+def eb_call(arguments):
+    cmd = ["eb"] + arguments
+    try:
+        process = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE, preexec_fn=demote())
+        (stdout, stderr) = process.communicate()
+        if process.returncode > 0:
+            raise subprocess.CalledProcessError(process.returncode, cmd)
+    except subprocess.CalledProcessError as err:
+        print "Caught ProcessError: returncode %s cmd: %s" % (err.returncode, err.cmd)
+        print "stdout: %s stderr: %s" % (stdout, stderr)
+        sys.exit(1)
+    except Exception, err:
+        print "Caught Exception err: %s" % (err)
+        sys.exit(1)
+
+def demote():
+    def set_ids():
+        os.setgid(1000)
+        os.setuid(1000)
+    return set_ids
+
+def call_build(args):
+    """The build subcommand"""
+    print "Building for toolchains: %s" % args.toolchains
+    for toolchain in args.toolchains:
+        rpm_glob = "/repos/%s/*.rpm" % toolchain
+        if glob.glob(rpm_glob):
+            cmd = ["rpm", "-ivh", rpm_glob]
+            check_call(cmd)
+        cmd = ["chown", "-R", "easybuild", "/software/easybuild"]
+        output = subprocess.check_output(cmd)
+        path_addto("MODULEPATH", "/software/Lmod/lmod/lmod/modulefiles/Core")
+        path_addto("MODULEPATH", "/software/easybuild-develop/modulefiles")
+        path_addto("MODULEPATH", "/software/easybuild/modules/all")
+        module("load", ["EasyBuild-develop"])
+        module("av")
+        module("load", ["lmod"])
+        eb_call(["FPM-1.3.3-Ruby-2.1.6.eb", "-r", "--prefix=/software/easybuild"])
+        module("av")
+        module("load", ["FPM/1.3.3-Ruby-2.1.6"])
+        cmd = ["eb --experimental --package",
+               "--sourcepath=/export/easybuild/sources --download-timeout=60",
+               "--prefix=/software/easybuild --packagepath=/repos/%(repos)s %(repos)s.eb -dfr"
+               % {'repos': toolchain}
+              ]
+        print "cmd: %s" % cmd
+        check_call(cmd)
+
+def main():
+    """The main function, when run on the command-line"""
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(help='sub-command help')
+    parser_build = subparsers.add_parser('build', help='a command to build a toolchain')
+    parser_build.add_argument('toolchains', nargs='+')
+    parser_build.set_defaults(func=call_build)
+    args = parser.parse_args()
+    args.func(args)
+
+if __name__ == '__main__':
+    main()
