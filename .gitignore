@@ -2,3 +2,5 @@ export/
 eb/docs
 sources/
 repos/
+.stfolder
+.stignore
