@@ -1,0 +1,7 @@
+# replacement for functions
+
+
+sucess() {
+  return 0
+
+}

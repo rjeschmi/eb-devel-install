@@ -1,0 +1,6 @@
+#!/bin/bash
+tmux \
+  new-session -s EasyBuild -n RootWindow \; \
+  new-window -n EasyBuild \; \
+  send-keys -t EasyBuild "su - easybuild" C-m \; \
+  selectw -t EasyBuild
