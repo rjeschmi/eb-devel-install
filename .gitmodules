@@ -1,27 +1,27 @@
 [submodule "eb/easybuild-easyconfigs"]
 	path = eb/easybuild-easyconfigs
-	url = git://github.com:rjeschmi/easybuild-easyconfigs
+	url = https://github.com/rjeschmi/easybuild-easyconfigs
 [submodule "eb/easybuild-easyblocks"]
 	path = eb/easybuild-easyblocks
-	url = git://github.com:rjeschmi/easybuild-easyblocks.git
+	url = https://github.com/rjeschmi/easybuild-easyblocks.git
 [submodule "eb/easybuild-framework"]
 	path = eb/easybuild-framework
-	url = git://github.com:rjeschmi/easybuild-framework.git
+	url = https://github.com/rjeschmi/easybuild-framework.git
 [submodule "eb/easybuild"]
 	path = eb/easybuild
-	url = git://github.com:rjeschmi/easybuild.git
+	url = https://github.com/rjeschmi/easybuild.git
 [submodule "eb/vsc-base"]
 	path = eb/vsc-base
-	url = git://github.com:rjeschmi/vsc-base.git
+	url = https://github.com/rjeschmi/vsc-base.git
 [submodule "eb-easyconfigs"]
 	path = eb-easyconfigs
-	url = git://github.com:rjeschmi/eb-easyconfigs.git
+	url = https://github.com/rjeschmi/eb-easyconfigs.git
 [submodule "eb-easyblocks"]
 	path = eb-easyblocks
-	url = git://github.com:rjeschmi/eb-easyblocks.git
+	url = https://github.com/rjeschmi/eb-easyblocks.git
 [submodule "eb/vsc-install"]
 	path = eb/vsc-install
-	url = git://github.com:hpcugent/vsc-install.git
+	url = https://github.com/hpcugent/vsc-install.git
 [submodule "docker/centos7"]
 	path = docker/centos7
-	url = git://github.com:rjeschmi/docker-easybuild-centos7.git
+	url = https://github.com/rjeschmi/docker-easybuild-centos7.git
