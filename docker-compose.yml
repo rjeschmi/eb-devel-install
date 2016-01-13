@@ -8,7 +8,7 @@ easybuild:
         - ./eb-easyconfigs:/software/eb-easyconfigs
         - ./sources:/export/easybuild/sources
         - ./repos:/repos
-        - ./scripts/easy_build:/software/scripts/easy_build
+        - ./scripts:/software/scripts
         - ./eb/config/config.cfg:/software/config/config.cfg
     user: root
 
@@ -24,3 +24,11 @@ BuildToolchain:
     extends: easybuild
     entrypoint: /software/scripts/easy_build
 
+mpeb:
+    extends: easybuild
+    image: rjeschmi/mpeb
+
+ebdockerbrowser:
+    extends: easybuild
+    build: docker/ebdockerbrowser
+    user: easybuild

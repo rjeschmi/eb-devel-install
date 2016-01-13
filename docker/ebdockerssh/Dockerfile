@@ -1,4 +1,4 @@
-FROM rjeschmi/easybuild-centos7
+FROM rjeschmi/ebweb
 
 USER root
 

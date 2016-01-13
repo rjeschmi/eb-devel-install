@@ -5,7 +5,23 @@
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
-#init-hook=
+init-hook='''
+  import os,sys
+  import logging
+  logger = logging.getLogger('pylintrc')
+  ch = logging.StreamHandler()
+  ch.setLevel(logging.INFO)
+  logger.addHandler(ch)
+  logger.setLevel(logging.INFO)
+  project_root = '/Users/robertschmidt/git/eb-devel-install'
+  eb_root = os.path.join(project_root, 'eb')
+  eb_mods = [
+    'easybuild-easyconfigs','easybuild-easyblocks',
+    'easybuild-framework', 'vsc-base/lib', 'vsc-install'
+  ]
+  [sys.path.insert(1, os.path.join(eb_root,x)) for x in eb_mods]
+  logger.debug(sys.path)
+  '''
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.

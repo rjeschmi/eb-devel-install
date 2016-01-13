@@ -101,6 +101,13 @@ def call_build(args):
         print "calling eb with args: %s" % cmd
         eb_call(cmd)
 
+def call_yumrepo(args):
+    """The yumrepo update helper"""
+    for toolchain in args.toolchains:
+        cmd = ["createrepo", "/repos/%s" % toolchain]
+        output = subprocess.check_output(cmd)
+        print "create_repo: %s" % output
+
 def main():
     """The main function, when run on the command-line"""
     parser = argparse.ArgumentParser()
@@ -108,6 +115,11 @@ def main():
     parser_build = subparsers.add_parser('build', help='a command to build a toolchain')
     parser_build.add_argument('toolchains', nargs='+')
     parser_build.set_defaults(func=call_build)
+
+    parser_yumrepo = subparsers.add_parser('yumrepo', help='a command to update a yumrepo')
+    parser_yumrepo.add_argument('toolchains', nargs='+')
+    parser_yumrepo.set_defaults(func=call_yumrepo)
+
     args = parser.parse_args()
     args.func(args)
 
