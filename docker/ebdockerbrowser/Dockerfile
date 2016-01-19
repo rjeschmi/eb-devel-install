@@ -22,4 +22,6 @@ RUN tar xf /build/eb_bootstrap.tar.gz
 WORKDIR /build
 RUN curl -LO https://raw.githubusercontent.com/rjeschmi/eb-devel-install/master/scripts/easy_build
 RUN chmod a+x /build/easy_build
+
+ADD config.cfg /software/config/config.cfg
 CMD /build/tmux_session
