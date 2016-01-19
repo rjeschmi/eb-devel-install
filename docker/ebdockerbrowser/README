@@ -1,0 +1,13 @@
+[0;34m
+Welcome to EasyBuild Docker Demo
+image available in the docker registry at rjeschmi/ebweb [0m
+[0;35m
+This is a two window tmux session set to use the screen default escape sequence of Ctrl-a
+[0m
+So to move between the two windows you need to type the escape sequence, release, then the command
+ex: [0;33mCtrl-a, p[0m and [0;33m Ctrl-a, n [0m
+
+The RootWindow is provided as a convenience to run yum commands and install
+prebuilt EasyBuild toolchains
+
+You might try: [0;33myum install foss-2015b[0m to install a GCC toolchain with openmpi

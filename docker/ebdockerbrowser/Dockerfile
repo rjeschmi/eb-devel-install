@@ -13,9 +13,13 @@ RUN yum install -y tmux
 ADD tmux.conf /etc/tmux.conf
 ADD tmux_session /build/tmux_session
 RUN chmod a+x /build/tmux_session
+ADD README /build/README
 
 WORKDIR /build
 RUN curl -LO http://yumaws.ottbioinfo.ca/bootstrap/eb_bootstrap.tar.gz
 WORKDIR /software
 RUN tar xf /build/eb_bootstrap.tar.gz
+WORKDIR /build
+RUN curl -LO https://raw.githubusercontent.com/rjeschmi/eb-devel-install/master/scripts/easy_build
+RUN chmod a+x /build/easy_build
 CMD /build/tmux_session

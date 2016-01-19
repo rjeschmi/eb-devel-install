@@ -4,5 +4,6 @@ tmux \
   new-window -n EasyBuild \; \
   send-keys -t EasyBuild "su - easybuild" C-m \; \
   send-keys -t EasyBuild "ml load FPM" C-m \; \
+  send-keys -t EasyBuild "cat /build/README" C-m \; \
   send-keys -t EasyBuild "ml av" C-m \; \
   selectw -t EasyBuild
