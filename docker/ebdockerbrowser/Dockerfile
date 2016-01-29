@@ -24,4 +24,6 @@ RUN curl -LO https://raw.githubusercontent.com/rjeschmi/eb-devel-install/master/
 RUN chmod a+x /build/easy_build
 
 ADD config.cfg /software/config/config.cfg
+ADD config_hier_mns.cfg /software/config/config_hier_mns.cfg
+ADD EasyBuild-Hier-NMS  /software/easybuild-develop/modulefiles/EasyBuild-Hier-NMS
 CMD /build/tmux_session
