@@ -17,7 +17,8 @@ init-hook='''
   eb_root = os.path.join(project_root, 'eb')
   eb_mods = [
     'easybuild-easyconfigs','easybuild-easyblocks',
-    'easybuild-framework', 'vsc-base/lib', 'vsc-install'
+    'vsc-base/lib', 'vsc-install',
+    'easybuild-framework',
   ]
   [sys.path.insert(1, os.path.join(eb_root,x)) for x in eb_mods]
   logger.debug(sys.path)
@@ -201,7 +202,7 @@ max-nested-blocks=5
 [FORMAT]
 
 # Maximum number of characters on a single line.
-max-line-length=100
+max-line-length=120
 
 # Regexp for a line that is allowed to be longer than the limit.
 ignore-long-lines=^\s*(# )?<?https?://\S+>?$

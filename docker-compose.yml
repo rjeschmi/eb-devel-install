@@ -31,4 +31,3 @@ mpeb:
 ebdockerbrowser:
     extends: easybuild
     build: docker/ebdockerbrowser
-    user: easybuild
