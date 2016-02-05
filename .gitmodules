@@ -25,3 +25,6 @@
 [submodule "docker/centos7"]
 	path = docker/centos7
 	url = https://github.com/rjeschmi/docker-easybuild-centos7.git
+[submodule "spack/spack"]
+	path = spack/spack
+	url = https://github.com/rjeschmi/spack.git
