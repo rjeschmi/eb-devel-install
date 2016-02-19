@@ -2,6 +2,8 @@ export/
 eb/docs
 sources/
 repos/
+eb-module/EasyBuild-develop
+eb/config/config.cfg
 .stfolder
 .stignore
 stignore
