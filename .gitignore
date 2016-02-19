@@ -7,3 +7,5 @@ eb/config/config.cfg
 .stfolder
 .stignore
 stignore
+.tags
+.tags1
