@@ -3,6 +3,7 @@ easybuild:
     volumes:
         - ./export:/export/easybuild
         - ./eb:/software/easybuild-develop
+        - ./spack:/software/spack
         - ./eb-module:/software/easybuild-develop/modulefiles
         - ./eb-easyblocks:/software/eb-easyblocks
         - ./eb-easyconfigs:/software/eb-easyconfigs

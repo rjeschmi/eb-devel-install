@@ -28,3 +28,6 @@
 [submodule "spack/spack"]
 	path = spack/spack
 	url = https://github.com/rjeschmi/spack.git
+[submodule "mpeb"]
+	path = mpeb
+	url = https://github.com/rjeschmi/mpeb.git
