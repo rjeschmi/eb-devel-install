@@ -31,3 +31,6 @@
 [submodule "mpeb"]
 	path = mpeb
 	url = https://github.com/rjeschmi/mpeb.git
+[submodule "hpcbios/hpcbios-easybuild-easyconfigs"]
+	path = hpcbios/hpcbios-easybuild-easyconfigs
+	url = https://github.com/hpcbios/hpcbios-easybuild-easyconfigs.git
