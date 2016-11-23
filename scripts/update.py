@@ -16,7 +16,11 @@ BRANCHEXCEPTION = {
 def gitaddupstream(repo):
     """update remote to each repo by changing into the directory"""
     process = Popen(
-        ["git", "remote", "add", "upstream", "git@github.com:hpcugent/%s.git" % repo], cwd=repo, stdout=PIPE, stderr=PIPE
+        ["git", "remote", "remove", "upstream"], cwd=repo, stdout=PIPE, stderr=PIPE
+    )
+    output = process.communicate()[0]
+    process = Popen(
+        ["git", "remote", "add", "upstream", "https://github.com/hpcugent/%s.git" % repo], cwd=repo, stdout=PIPE, stderr=PIPE
     )
     output = process.communicate()[0]
     return "fetching %s output: %s" % (repo, output)
