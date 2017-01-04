@@ -34,3 +34,6 @@
 [submodule "hpcbios/hpcbios-easybuild-easyconfigs"]
 	path = hpcbios/hpcbios-easybuild-easyconfigs
 	url = https://github.com/hpcbios/hpcbios-easybuild-easyconfigs.git
+[submodule "docker/lmod"]
+	path = docker/lmod
+	url = https://github.com/rjeschmi/docker-lmod.git
