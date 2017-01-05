@@ -1,0 +1,29 @@
+# Bootstrap definition example for Centos-7 with the latest Open MPI from GitHub master
+
+BootStrap: yum
+OSVersion: 7
+MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/
+Include: yum
+
+%setup
+    echo "Looking in directory '$SINGULARITY_ROOTFS' for /bin/sh"
+    if [ ! -x "$SINGULARITY_ROOTFS/bin/sh" ]; then
+        echo "Hrmm, this container does not have /bin/sh installed..."
+        exit 1
+    fi
+    exit 0
+
+%post
+    echo "Installing Development Tools YUM group"
+    yum -y groupinstall "Development Tools"
+    echo "Installing Other Deps"
+    yum -y install git tar which bzip2 xz \
+            epel-release make automake gcc gcc-c++ patch \
+            python-keyring zlib-devel openssl-devel unzip
+    exit 0
+
+%runscript
+    echo "Arguments received: $*"
+    exec /usr/bin/python "$@"
+
+%test
