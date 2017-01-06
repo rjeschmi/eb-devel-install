@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+import sys
+import importlib
+
+def eb_main_call(*args, **kwargs):
+    """A function that will be demoted and call eb_main_call"""
+    args = kwargs.get('args', None)
+    import easybuild.main as eb_main
+    eb_main.main(args=args)
+
+def dec_debug(func):
+  def debug_wrap(*args,**kwargs):
+    print "calling the function with args: %s kwargs: %s" % (args, kwargs)
+    result = func(*args,**kwargs)
+    print "after the function"
+    return result
+
+  return debug_wrap
+
+def mb_wrap_func(package, func):
+  obj=importlib.import_module(package)
+  setattr(package,func, dec_debug(getattr(obj, func)))
+
+
+def main():
+  mb_wrap_func('easybuild.tools.options', 'parse_options')
+  eb_main_call(args=sys.argv[1:])
+
+
+if __name__ == '__main__':
+      main()
