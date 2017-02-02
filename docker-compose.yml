@@ -1,5 +1,5 @@
-easybuild:
-    image: rjeschmi/easybuild-centos7
+ebdev:
+    image: rjeschmi/easybuild-centos7:develop
     volumes:
         - ./export:/export/easybuild
         - ./eb:/software/easybuild-develop
@@ -12,23 +12,12 @@ easybuild:
         - ./scripts:/software/scripts
         - ./eb/config/config.cfg:/software/config/config.cfg
     user: root
-
-easybuildfedora23:
-    image: rjeschmi/easybuild-fedora23
-    extends: easybuild
-
-easybuild_build:
-    extends: easybuild
-    build: docker/centos7
-
-BuildToolchain:
-    extends: easybuild
-    entrypoint: /software/scripts/easy_build
+    entrypoint: bash
 
 mpeb:
-    extends: easybuild
+    extends: ebdev
     image: rjeschmi/mpeb
 
 ebdockerbrowser:
-    extends: easybuild
+    extends: ebdev
     build: docker/ebdockerbrowser
