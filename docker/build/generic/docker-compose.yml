@@ -1,0 +1,22 @@
+version: '2'
+services: 
+    fpm:
+        build:
+            context: .
+            dockerfile: Dockerfile.fpm
+        image: rjeschmi/easybuild-centos7:3.0
+        volumes: 
+            - ./packages:/easybuild/packages
+    ebgeneric:
+        build:
+            context: .
+            dockerfile: Dockerfile.generic
+        image: rjeschmi/easybuild-centos7-generic
+        volumes: 
+            - ./packages:/easybuild/packages
+    nginx:
+        image: nginx
+        volumes:
+            - ./packages:/usr/share/nginx/html/eb/generic
+        ports:
+            - "80:80"

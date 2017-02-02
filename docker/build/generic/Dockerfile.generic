@@ -1,0 +1,19 @@
+FROM rjeschmi/easybuild-centos7:3.0.0
+
+MAINTAINER Robert Schmidt <rjeschmi@gmail.com>
+
+USER root
+ADD build/40-optarch-generic.cfg /easybuild/etc/easybuild.d/40-optarch-generic.cfg
+ADD build/ebrpm.sh  /usr/bin/ebrpm
+RUN chmod a+x /usr/bin/ebrpm
+RUN yum -y install dnf
+
+WORKDIR /easybuild/packages
+
+ENTRYPOINT /bin/bash
+
+RUN mkdir /run/user/1000
+run chown easybuild /run/user/1000
+
+USER easybuild
+
