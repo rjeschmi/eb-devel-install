@@ -9,3 +9,4 @@ eb/config/config.cfg
 stignore
 .tags
 .tags1
+docker/build/generic/packages
