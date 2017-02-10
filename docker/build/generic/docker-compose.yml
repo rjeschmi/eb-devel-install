@@ -14,6 +14,14 @@ services:
         image: rjeschmi/easybuild-centos7-generic
         volumes: 
             - ./packages:/easybuild/packages
+    ebfoss:
+        build:
+            context: .
+            dockerfile: Dockerfile.foss2016a
+        image: rjeschmi/easybuild-centos7-generic-foss2016a
+        volumes:
+            - ./packages:/easybuild/packages
+
     nginx:
         image: nginx
         volumes:

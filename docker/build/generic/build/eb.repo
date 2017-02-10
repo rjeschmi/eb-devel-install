@@ -1,0 +1,6 @@
+[eb]
+name=EasyBuild repo of interesting packages
+baseurl=http://cc.ottbioinfo.ca/eb/generic
+enabled=1
+gpgcheck=0
+

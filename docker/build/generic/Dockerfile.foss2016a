@@ -1,0 +1,17 @@
+FROM rjeschmi/easybuild-centos7-generic:latest
+
+MAINTAINER Robert Schmidt <rjeschmi@gmail.com>
+
+USER root
+ADD build/eb.repo /etc/yum.repos.d/eb.repo
+RUN yum clean all && yum -y install foss-2016a
+RUN yum clean all && yum -y install FPM-1.3.3-Ruby-2.1.6
+
+WORKDIR /easybuild/packages
+
+ENTRYPOINT /bin/bash
+
+run chown easybuild /easybuild
+
+USER easybuild
+
