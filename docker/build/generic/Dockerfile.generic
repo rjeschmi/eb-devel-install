@@ -6,7 +6,6 @@ USER root
 ADD build/40-optarch-generic.cfg /easybuild/etc/easybuild.d/40-optarch-generic.cfg
 ADD build/ebrpm.sh  /usr/bin/ebrpm
 RUN chmod a+x /usr/bin/ebrpm
-RUN yum -y install dnf
 
 WORKDIR /easybuild/packages
 
