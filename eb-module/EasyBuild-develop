@@ -16,7 +16,7 @@ repeatable and robust way. - Homepage: http://hpcugent.github.com/easybuild/
 This module provides the development version of EasyBuild.
 }
 
-set root    "/software/easybuild-develop"
+set root    "/easybuild/easybuild-develop"
 
 conflict    EasyBuild
 
@@ -30,3 +30,4 @@ prepend-path    PYTHONPATH      "$root/easybuild-easyconfigs"
 
 setenv  EASYBUILD_CONFIGFILES "/software/config/config.cfg"
 setenv  TEST_EASYBUILD_MODULES_TOOL  "Lmod"
+setenv  EBROOTEASYBUILD     "$root/easybuild-framework"
