@@ -2,17 +2,20 @@ ebdev:
     image: rjeschmi/easybuild-centos7:develop
     volumes:
         - ./export:/export/easybuild
-        - ./eb:/software/easybuild-develop
+        - ./eb:/easybuild/easybuild-develop
+        - ./eb-module:/easybuild/easybuild-develop/modulefiles
         - ./spack:/software/spack
-        - ./eb-module:/software/easybuild-develop/modulefiles
         - ./eb-easyblocks:/software/eb-easyblocks
         - ./eb-easyconfigs:/software/eb-easyconfigs
-        - ./sources:/export/easybuild/sources
+        - ./sources:/easybuild/sources
         - ./repos:/repos
         - ./scripts:/software/scripts
         - ./eb/config/config.cfg:/software/config/config.cfg
+        - ./state/root_bash_history:/root/.bash_history
+        - ./state/easybuild_bash_history:/home/easybuild/.bash_history
     user: root
     entrypoint: bash
+    working_dir: /easybuild/easybuild-develop/easybuild-framework
 
 mpeb:
     extends: ebdev
