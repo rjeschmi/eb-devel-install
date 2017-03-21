@@ -10,3 +10,4 @@ stignore
 .tags
 .tags1
 docker/build/generic/packages
+state/

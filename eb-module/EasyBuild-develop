@@ -28,6 +28,5 @@ prepend-path    PYTHONPATH      "$root/easybuild-framework"
 prepend-path    PYTHONPATH      "$root/easybuild-easyblocks"
 prepend-path    PYTHONPATH      "$root/easybuild-easyconfigs"
 
-setenv  EASYBUILD_CONFIGFILES "/software/config/config.cfg"
 setenv  TEST_EASYBUILD_MODULES_TOOL  "Lmod"
 setenv  EBROOTEASYBUILD     "$root/easybuild-framework"

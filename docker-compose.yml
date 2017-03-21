@@ -7,16 +7,22 @@ ebdev:
         - ./spack:/software/spack
         - ./eb-easyblocks:/software/eb-easyblocks
         - ./eb-easyconfigs:/software/eb-easyconfigs
-        - ./sources:/easybuild/sources
+        - /software/sources:/easybuild/sources
         - ./repos:/repos
         - ./scripts:/software/scripts
         - ./eb/config/config.cfg:/software/config/config.cfg
         - ./state/root_bash_history:/root/.bash_history
         - ./state/easybuild_bash_history:/home/easybuild/.bash_history
+        - ./state/python_keyring:/home/easybuild/.local/share/python_keyring
     user: root
     entrypoint: bash
     working_dir: /easybuild/easybuild-develop/easybuild-framework
-
+ebdevtest:
+    extends: ebdev
+    entrypoint: "/usr/bin/eb"
+    volumes:
+        - ./scripts/eb.wrapper:/usr/bin/eb
+    user: easybuild
 mpeb:
     extends: ebdev
     image: rjeschmi/mpeb
