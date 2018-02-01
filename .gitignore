@@ -11,3 +11,4 @@ stignore
 .tags1
 docker/build/generic/packages
 state/
+package/

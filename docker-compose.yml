@@ -1,32 +1,47 @@
-ebdev:
-    image: rjeschmi/easybuild-centos7:develop
+version: '2'
+services: 
+  ebdev:
+    image: rjeschmi/easybuild-centos7:latest
+    tmpfs:
+        - /dev/shm:rw,nosuid,nodev,exec
     volumes:
         - ./export:/export/easybuild
+        - ./package:/easybuild/package
         - ./eb:/easybuild/easybuild-develop
         - ./eb-module:/easybuild/easybuild-develop/modulefiles
         - ./spack:/software/spack
         - ./eb-easyblocks:/software/eb-easyblocks
         - ./eb-easyconfigs:/software/eb-easyconfigs
-        - /software/sources:/easybuild/sources
+        - ./sources:/easybuild/sources
         - ./repos:/repos
         - ./scripts:/software/scripts
         - ./eb/config/config.cfg:/software/config/config.cfg
         - ./state/root_bash_history:/root/.bash_history
         - ./state/easybuild_bash_history:/home/easybuild/.bash_history
         - ./state/python_keyring:/home/easybuild/.local/share/python_keyring
+        - ./state/tmux.conf:/home/easybuild/.tmux.conf
+        - ./state/tmux.conf:/root/.tmux.conf
+        - /dev/shm
     user: root
     entrypoint: bash
     working_dir: /easybuild/easybuild-develop/easybuild-framework
-ebdevtest:
-    extends: ebdev
+    #network_mode: "host"
+    mac_address: 02:42:ac:13:00:02
+  ebdevtest:
+    extends: 
+        service: ebdev
     entrypoint: "/usr/bin/eb"
     volumes:
         - ./scripts/eb.wrapper:/usr/bin/eb
     user: easybuild
-mpeb:
-    extends: ebdev
+  mpeb:
+    extends: 
+        service: ebdev
     image: rjeschmi/mpeb
 
-ebdockerbrowser:
-    extends: ebdev
+  ebdockerbrowser:
+    extends: 
+        service: ebdev
     build: docker/ebdockerbrowser
+
+
