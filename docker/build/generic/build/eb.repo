@@ -1,6 +1,6 @@
 [eb]
 name=EasyBuild repo of interesting packages
-baseurl=http://cc.ottbioinfo.ca/eb/generic
+baseurl=http://yumeb.ayr.ca.s3-website-us-east-1.amazonaws.com/generic
 enabled=1
 gpgcheck=0
 

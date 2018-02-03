@@ -4,7 +4,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.fpm
-        image: rjeschmi/easybuild-centos7:3.0
+        image: rjeschmi/easybuild-centos7:fpm
         volumes: 
             - ./packages:/easybuild/packages
     ebgeneric:

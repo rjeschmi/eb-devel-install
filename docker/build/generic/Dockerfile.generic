@@ -1,4 +1,4 @@
-FROM rjeschmi/easybuild-centos7:3.0.0
+FROM rjeschmi/easybuild-centos7:latest
 
 MAINTAINER Robert Schmidt <rjeschmi@gmail.com>
 

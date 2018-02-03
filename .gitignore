@@ -12,3 +12,4 @@ stignore
 docker/build/generic/packages
 state/
 package/
+.DS_Store
