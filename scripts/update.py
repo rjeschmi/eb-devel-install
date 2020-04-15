@@ -2,17 +2,27 @@
 """
 A simple module to update easybuild repository
 """
-
+    
 import os
 import sys
 from multiprocessing import Pool
 from subprocess import Popen, PIPE
 
-BRANCHEXCEPTION = {
-    'vsc-base': 'master',
-    'easybuild': 'master',
-    'easybuild-wiki': 'master'
+update_dirs = {
+    'eb/easybuild-easyblocks': { 
+        'branch': 'develop',
+        'upstream'   : 'git@github.com:easybuilders/easybuild-easyblocks.git',
+     },
+    'eb/easybuild-easyconfigs': {
+        'branch': 'develop',
+        'upstream'   : 'git@github.com:easybuilders/easybuild-easyconfigs.git',
+     },
+    'eb/easybuild-framework': {
+        'branch': 'develop',
+        'upstream'   : 'git@github.com:easybuilders/easybuild-framework.git',
+    }
 }
+
 def gitaddupstream(repo):
     """update remote to each repo by changing into the directory"""
     process = Popen(
@@ -20,7 +30,7 @@ def gitaddupstream(repo):
     )
     output = process.communicate()[0]
     process = Popen(
-        ["git", "remote", "add", "upstream", "https://github.com/hpcugent/%s.git" % repo], cwd=repo, stdout=PIPE, stderr=PIPE
+        ["git", "remote", "add", "upstream", update_dirs[repo]['upstream']], cwd=repo, stdout=PIPE, stderr=PIPE
     )
     output = process.communicate()[0]
     return "fetching %s output: %s" % (repo, output)
@@ -35,17 +45,15 @@ def gitfetch(repo):
     return "fetching %s output: %s" % (repo, output)
 
 def gitmerge(repo):
-    defbranch = BRANCHEXCEPTION.setdefault(repo, "develop")
     process = Popen(
-        ["git", "merge", "--ff-only", "upstream/"+defbranch],
+        ["git", "merge", "--ff-only", "upstream/"+update_dirs[repo]['branch']],
         cwd=repo, stdout=PIPE, stderr=PIPE
     )
     output = process.communicate()[0]
     return "fetching %s output: %s" % (repo, output)
 
 def gitdefcheck(repo):
-    defbranch = BRANCHEXCEPTION.setdefault(repo, "develop")
-    process = Popen(["git", "checkout", defbranch ], cwd=repo, stdout=PIPE, stderr=PIPE)
+    process = Popen(["git", "checkout", update_dirs[repo]['branch'] ], cwd=repo, stdout=PIPE, stderr=PIPE)
     output = process.communicate()[0]
     return "merging %s output: %s" % (repo, output)
 
@@ -56,8 +64,8 @@ def printoutput(out):
 
 def main():
     print "creating a 4 process pool"
-    pool = Pool(processes=4)
-    dirs = [repo for repo in os.listdir(".") if os.path.isfile(os.path.join(repo, ".git"))]
+    pool = Pool(processes=10)
+    dirs = update_dirs.keys()
     print "applying gitfetch to %s" % dirs
     printoutput(pool.map(gitaddupstream, dirs))
     printoutput(pool.map(gitdefcheck, dirs))
