@@ -1,15 +1,15 @@
 [submodule "eb/easybuild-easyconfigs"]
 	path = eb/easybuild-easyconfigs
-	url = git@github.com:rjeschmi/easybuild-easyconfigs.git
+	url = https://github.com/rjeschmi/easybuild-easyconfigs.git
 [submodule "eb/easybuild-easyblocks"]
 	path = eb/easybuild-easyblocks
-	url = git@github.com:rjeschmi/easybuild-easyblocks.git
+	url = https://github.com/rjeschmi/easybuild-easyblocks.git
 [submodule "eb/easybuild-framework"]
 	path = eb/easybuild-framework
-	url = git@github.com:rjeschmi/easybuild-framework.git
+	url = https://github.com/rjeschmi/easybuild-framework.git
 [submodule "eb/easybuild"]
 	path = eb/easybuild
-	url = git@github.com:rjeschmi/easybuild.git
+	url = https://github.com/rjeschmi/easybuild.git
 [submodule "eb-easyconfigs"]
 	path = eb-easyconfigs
 	url = https://github.com/rjeschmi/eb-easyconfigs.git

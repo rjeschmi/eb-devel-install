@@ -9,6 +9,11 @@ from multiprocessing import Pool
 from subprocess import Popen, PIPE
 
 update_dirs = {
+    'eb/easybuild': {
+        'branch': 'develop',
+        'upstream'   : 'git@github.com:easybuilders/easybuild.git',
+     },
+
     'eb/easybuild-easyblocks': { 
         'branch': 'develop',
         'upstream'   : 'git@github.com:easybuilders/easybuild-easyblocks.git',
@@ -71,13 +76,13 @@ def gitdefcheck(repo):
 
 def printoutput(out):
     for line in out:
-        print line
+        print(line)
 
 def main():
-    print "creating a 4 process pool"
+    print("creating a 4 process pool")
     pool = Pool(processes=10)
     dirs = update_dirs.keys()
-    print "applying gitfetch to %s" % dirs
+    print("applying gitfetch to %s" % dirs)
     printoutput(pool.map(gitaddupstream, dirs))
     printoutput(pool.map(gitdefcheck, dirs))
     printoutput(pool.map(gitfetch, dirs))
