@@ -28,5 +28,5 @@ prepend-path    PYTHONPATH      "$root/easybuild-framework"
 prepend-path    PYTHONPATH      "$root/easybuild-easyblocks"
 prepend-path    PYTHONPATH      "$root/easybuild-easyconfigs"
 
-setenv  EASYBUILD_CONFIGFILES "/home/rob/git/eb-devel-install/config/config.cc.cfg"
+setenv  EASYBUILD_CONFIGFILES "/home/rob/git/eb-devel-install/config/config.generic.cfg"
 setenv  TEST_EASYBUILD_MODULES_TOOL  "Lmod"
