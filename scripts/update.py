@@ -11,20 +11,23 @@ from subprocess import Popen, PIPE
 update_dirs = {
     'eb/easybuild': {
         'branch': 'develop',
-        'upstream'   : 'git@github.com:easybuilders/easybuild.git',
+        'upstream'   : 'https://github.com/easybuilders/easybuild.git',
      },
 
     'eb/easybuild-easyblocks': { 
         'branch': 'develop',
-        'upstream'   : 'git@github.com:easybuilders/easybuild-easyblocks.git',
+        'upstream'   : 'https://github.com/easybuilders/easybuild-easyblocks.git',
+        'origin'     : 'https://github.com/rjeschmi/easybuild-easyblocks.git',
      },
     'eb/easybuild-easyconfigs': {
         'branch': 'develop',
-        'upstream'   : 'git@github.com:easybuilders/easybuild-easyconfigs.git',
+        'upstream'   : 'https://github.com/easybuilders/easybuild-easyconfigs.git',
+        'origin'     : 'https://github.com/rjeschmi/easybuild-easyconfigs.git',
      },
     'eb/easybuild-framework': {
         'branch': 'develop',
-        'upstream'   : 'git@github.com:easybuilders/easybuild-framework.git',
+        'upstream'   : 'https://github.com/easybuilders/easybuild-framework.git',
+        'origin'     : 'https://github.com/rjeschmi/easybuild-framework.git',
     }
 }
 
@@ -35,7 +38,15 @@ def gitaddupstream(repo):
     )
     output = process.communicate()[0]
     process = Popen(
+        ["git", "remote", "remove", "origin"], cwd=repo, stdout=PIPE, stderr=PIPE
+    )
+    output = process.communicate()[0]
+    process = Popen(
         ["git", "remote", "add", "upstream", update_dirs[repo]['upstream']], cwd=repo, stdout=PIPE, stderr=PIPE
+    )
+    output = process.communicate()[0]
+    process = Popen(
+        ["git", "remote", "add", "origin", update_dirs[repo]['origin']], cwd=repo, stdout=PIPE, stderr=PIPE
     )
     output = process.communicate()[0]
     return "fetching %s output: %s" % (repo, output)
