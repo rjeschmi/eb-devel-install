@@ -31,3 +31,6 @@
 [submodule "hpcbios/hpcbios-easybuild-easyconfigs"]
 	path = hpcbios/hpcbios-easybuild-easyconfigs
 	url = https://github.com/hpcbios/hpcbios-easybuild-easyconfigs.git
+[submodule "contrib/easy_update"]
+	path = contrib/easy_update
+	url = git@github.com:fizwit/easy_update.git
